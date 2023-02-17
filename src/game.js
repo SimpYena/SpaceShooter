@@ -19,7 +19,7 @@ export default class Game {
     this.gamePlayScene = new GamePlayScene();
     this.gameContainer.addChild(this.gamePlayScene);
   }
-  update(dt) {
+   update(dt) {
     this.gamePlayScene.update(dt);
   }
 }

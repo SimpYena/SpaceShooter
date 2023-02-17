@@ -1,5 +1,6 @@
 import { Container, Sprite, Texture } from "pixi.js";
 import { PointerMove } from "../input/mouse";
+import { Setting } from "../settings";
 
 export class SpaceShip extends Container {
   constructor() {
@@ -12,12 +13,10 @@ export class SpaceShip extends Container {
 
     this.ship.width = 64;
     this.ship.height = 64;
+    this.ship.anchor.set(0.5);
     this.addChild(this.ship);
   }
-  move() {
-    new PointerMove(this.ship, this.gameContainer);
-  }
   update(dt) {
-    this.move();
+    // this.move();
   }
 }
