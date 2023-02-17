@@ -1,4 +1,4 @@
 export const Setting = {
-  WIDTH: window.innerWidth,
-  HEIGHT: window.innerHeight,
+  WIDTH: window.innerWidth - 400,
+  HEIGHT: window.innerHeight - 150,
 };
