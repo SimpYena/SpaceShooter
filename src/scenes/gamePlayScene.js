@@ -5,6 +5,7 @@ import { Setting } from "../settings";
 import { PointerMove } from "../input/mouse";
 import { Bullet } from "../objects/bullet/bullet";
 import { BulletManager } from "../objects/bullet/bullet";
+import { EnemyController } from "../objects/enemy/enemyController";
 export class GamePlayScene extends Container {
   constructor() {
     super();
@@ -12,8 +13,8 @@ export class GamePlayScene extends Container {
     this.addChild(this.gameContainer);
     this.initMap();
     this.initShip();
+    this.initEnemy();
     this.initBulletManager();
-    
   }
   initMap() {
     this.map = new Map();
@@ -32,7 +33,7 @@ export class GamePlayScene extends Container {
     this.ship.on("click", () => {
       this.ship.fire(this.ship.position);
     });
-  
+
     // Set the fire() method of the ship to call the bulletManager's fire() method
     this.ship.fire = (position) => {
       this.bulletManager.fire(position);
@@ -41,8 +42,18 @@ export class GamePlayScene extends Container {
   initBulletManager() {
     this.bulletManager = new BulletManager(this.gameContainer);
   }
-  update(dt){
+  // create random enemy in position x 
+  initEnemy() {
+    this.enemy = new EnemyController();
+    this.gameContainer.addChild(this.enemy);
+
+    // this.enemy.x = Setting.WIDTH / 2;
+    // this.enemy.y = Setting.HEIGHT - 550;
+
+  }
+  update(dt) {
     this.pointerMove.update(dt);
     this.bulletManager.update(dt);
+    this.enemy.update(dt);
   }
 }

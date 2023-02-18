@@ -24,7 +24,8 @@
     "esbuild-loader": "^2.20.0",
     "howler": "^2.2.3",
     "html-webpack-plugin": "^5.5.0",
-    "pixi.js": "^7.1.2"
+    "pixi.js": "^7.1.2",
+    "webpack": "^5.75.0"
   },
   "devDependencies": {
     "webpack-cli": "^5.0.1",
