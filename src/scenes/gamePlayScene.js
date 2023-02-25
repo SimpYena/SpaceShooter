@@ -6,6 +6,8 @@ import { PointerMove } from "../input/mouse";
 import { Bullet } from "../objects/bullet/bullet";
 import { BulletManager } from "../objects/bullet/bullet";
 import { EnemyController } from "../objects/enemy/enemyController";
+import { CollisionDetector } from "../collide/collidedetect";
+import EventEmitter from "eventemitter3";
 export class GamePlayScene extends Container {
   constructor() {
     super();
@@ -15,11 +17,15 @@ export class GamePlayScene extends Container {
     this.initShip();
     this.initEnemy();
     this.initBulletManager();
+    this.initCollisionDetector();
+    this.emitter = new EventEmitter();
   }
+
   initMap() {
     this.map = new Map();
     this.gameContainer.addChild(this.map);
   }
+
   initShip() {
     this.ship = new SpaceShip();
     this.ship.x = Setting.WIDTH / 2;
@@ -33,27 +39,32 @@ export class GamePlayScene extends Container {
     this.ship.on("click", () => {
       this.ship.fire(this.ship.position);
     });
-
-    // Set the fire() method of the ship to call the bulletManager's fire() method
     this.ship.fire = (position) => {
       this.bulletManager.fire(position);
     };
   }
+
   initBulletManager() {
     this.bulletManager = new BulletManager(this.gameContainer);
   }
-  // create random enemy in position x 
+
   initEnemy() {
-    this.enemy = new EnemyController();
-    this.gameContainer.addChild(this.enemy);
-
-    // this.enemy.x = Setting.WIDTH / 2;
-    // this.enemy.y = Setting.HEIGHT - 550;
-
+    this.enemyController = new EnemyController();
+    this.gameContainer.addChild(this.enemyController);
   }
+  initCollisionDetector() {
+    this.collisionDetector = new CollisionDetector(
+      this.bulletManager.bullets,
+      this.enemyController.enemies,
+      this.gameContainer,
+      this.emitter
+    );
+  }
+
   update(dt) {
     this.pointerMove.update(dt);
     this.bulletManager.update(dt);
-    this.enemy.update(dt);
+    this.enemyController.update(dt);
+    this.collisionDetector.checkCollisions();
   }
 }

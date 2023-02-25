@@ -16,6 +16,7 @@ export class SpaceShip extends Container {
     this.ship.anchor.set(0.5);
     this.addChild(this.ship);
   }
+  
   update(dt) {
     // this.move();
   }

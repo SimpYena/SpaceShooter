@@ -14,6 +14,7 @@ export class PointerMove {
     this.targetX = event.data.global.x;
     this.targetY = event.data.global.y;
   }
+  
 
   update(dt) {
     const speed = 1.5; // Adjust this value to control the smoothing
