@@ -1,35 +1,64 @@
 import { Container } from "pixi.js";
 import { Enemy } from "./enemy";
 import { Setting } from "../../settings";
+import { BulletEnemy } from "../bullet/bulletEnemy";
+
 export class EnemyController extends Container {
     constructor() {
         super();
         this.createManyEnemys();
+        this.enemies = [];
+        this.bullets = [];
     }
     //create enemy in random position x 
     createManyEnemys() {
-        this.enemies = [];
         this.enemyInterval = setInterval(() => {
             this.enemy = new Enemy();
+            this.bullet = new BulletEnemy();
             this.addChild(this.enemy);
-            this.enemy.x = Math.floor(Math.random() * Setting.WIDTH - 50);
+            this.addChild(this.bullet);
+            this.enemy.x = Math.floor(Math.random() * Setting.WIDTH - 100);
             this.enemy.y = Setting.HEIGHT - 550;
+            this.bullet.x = this.enemy.x + this.enemy.width / 2 - this.bullet.width / 2 - 27;
+            this.bullet.y = this.enemy.y + this.enemy.height;
             this.enemies.push(this.enemy);
-            console.log(this.enemy.x);
+            this.bullets.push(this.bullet);
         }, 1000)
     }
- 
-     // Move the enemy spaceships down the screen and remove them if they go offscreen
+
+    // Move the enemy spaceships down the screen and remove them if they go offscreen
     moveEnemy() {
         this.enemies.forEach((enemy) => {
             enemy.y += 1;
-            if (enemy.enemy.y > Setting.HEIGHT + 50) {
-                this.gameContainer.removeChild(this.enemy);
+            if (enemy.y > Setting.HEIGHT + 50) {
+                this.removeChild(enemy);
                 this.enemies.splice(this.enemies.indexOf(enemy), 1);
             }
         })
     }
+
+    //fire bullet for enemy
+    // fireBullet() {
+    //     this.bulletInterval = setInterval(() => {
+    //         this.enemies.forEach((enemy) => {
+    //             this.bullet = new BulletEnemy();
+    //             this.bullet.x = enemy.x + enemy.width / 2 - this.bullet.width / 2;
+    //             this.bullet.y = enemy.y + enemy.height;
+    //             this.bullets.push(this.bullet);
+    //             this.addChild(this.bullet)
+    //         })
+    //     }, 1000);
+
+
+    // Move buller for enemy
+    moveBullet() {
+        this.bullets.forEach((bullet) => {
+            bullet.y += 3;
+        })
+    }
     update(dt) {
         this.moveEnemy()
+        this.moveBullet()
+        // this.fireBullet()
     }
 }
