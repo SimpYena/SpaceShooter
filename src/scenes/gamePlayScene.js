@@ -17,8 +17,8 @@ export class GamePlayScene extends Container {
     this.initShip();
     this.initEnemy();
     this.initBulletManager();
+    // this.emitter = new EventEmitter();
     this.initCollisionDetector();
-    this.emitter = new EventEmitter();
   }
 
   initMap() {
@@ -32,9 +32,7 @@ export class GamePlayScene extends Container {
     this.ship.y = Setting.HEIGHT - 100;
     this.gameContainer.addChild(this.ship);
     this.pointerMove = new PointerMove(this.ship, this.gameContainer);
-    this.ship.fire = (position) => {
-      this.bulletManager.fire(position);
-    };
+
     this.ship.interactive = true;
     this.ship.on("click", () => {
       this.ship.fire(this.ship.position);
@@ -56,8 +54,7 @@ export class GamePlayScene extends Container {
     this.collisionDetector = new CollisionDetector(
       this.bulletManager.bullets,
       this.enemyController.enemies,
-      this.gameContainer,
-      this.emitter
+      this.gameContainer
     );
   }
 
