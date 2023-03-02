@@ -1,26 +1,24 @@
 import { Rectangle } from "pixi.js";
 
-
 export class CollisionDetector {
-  constructor(tag1, tag2, gameContainer, emitter) {
+  constructor(tag1, tag2, gameContainer) {
     this.tag1 = tag1;
     this.tag2 = tag2;
     this.gameContainer = gameContainer;
-    this.emitter = emitter;
+    // this.emitter = emitter;
   }
 
   checkCollisions() {
     this.tag1.forEach((col1) => {
       this.tag2.forEach((col2) => {
         if (this.detectCollision(col1, col2)) {
+          console.log("hit");
           this.gameContainer.removeChild(col1);
-          this.gameContainer.removeChild(col2);
-          emitter.emit("collision", { col1, col2 });
+          // emitter.emit("collision", { col1, col2 });
         }
       });
     });
   }
-
   detectCollision(col1, col2) {
     const col1Rect = new Rectangle(
       col1.x - col1.width / 2,
