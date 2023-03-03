@@ -13,7 +13,10 @@ export class CollisionDetector {
       this.tag2.forEach((col2) => {
         if (this.detectCollision(col1, col2)) {
           console.log("hit");
+          console.log(col2)
+          this.gameContainer.removeChild(col2)
           this.gameContainer.removeChild(col1);
+          
           // emitter.emit("collision", { col1, col2 });
         }
       });

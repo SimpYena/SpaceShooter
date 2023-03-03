@@ -47,9 +47,10 @@ export class GamePlayScene extends Container {
   }
 
   initEnemy() {
-    this.enemyController = new EnemyController();
+    this.enemyController = new EnemyController(this.gameContainer);
     this.gameContainer.addChild(this.enemyController);
   }
+
   initCollisionDetector() {
     this.collisionDetector = new CollisionDetector(
       this.bulletManager.bullets,

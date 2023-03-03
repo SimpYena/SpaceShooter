@@ -4,8 +4,9 @@ import { Setting } from "../../settings";
 import { BulletEnemy } from "../bullet/bulletEnemy";
 
 export class EnemyController extends Container {
-    constructor() {
+    constructor(container) {
         super();
+        this.container = container;
         this.createManyEnemys();
         this.enemies = [];
         this.bullets = [];
@@ -15,8 +16,8 @@ export class EnemyController extends Container {
         this.enemyInterval = setInterval(() => {
             this.enemy = new Enemy();
             this.bullet = new BulletEnemy();
-            this.addChild(this.enemy);
-            this.addChild(this.bullet);
+            this.container.addChild(this.enemy);
+            this.container.addChild(this.bullet);
             this.enemy.x = Math.floor(Math.random() * Setting.WIDTH - 100);
             this.enemy.y = Setting.HEIGHT - 550;
             this.bullet.x = this.enemy.x + this.enemy.width / 2 - this.bullet.width / 2 - 27;
@@ -31,7 +32,7 @@ export class EnemyController extends Container {
         this.enemies.forEach((enemy) => {
             enemy.y += 1;
             if (enemy.y > Setting.HEIGHT + 50) {
-                this.removeChild(enemy);
+                this.container.removeChild(enemy);
                 this.enemies.splice(this.enemies.indexOf(enemy), 1);
             }
         })
@@ -54,6 +55,10 @@ export class EnemyController extends Container {
     moveBullet() {
         this.bullets.forEach((bullet) => {
             bullet.y += 3;
+            if (bullet.y > Setting.HEIGHT + 50) {
+                this.container.removeChild(bullet);
+                this.bullets.splice(this.bullets.indexOf(bullet), 1);
+            }
         })
     }
     update(dt) {
