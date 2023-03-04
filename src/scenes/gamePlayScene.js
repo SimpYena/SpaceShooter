@@ -1,4 +1,4 @@
-import { Container } from "pixi.js";
+import { Container, Text } from "pixi.js";
 import { Map } from "../objects/map";
 import { SpaceShip } from "../objects/ship";
 import { Setting } from "../settings";
@@ -8,6 +8,7 @@ import { EnemyController } from "../objects/enemy/enemyController";
 import { CollisionDetector } from "../collide/collidedetect";
 import EventEmitter from "eventemitter3";
 import { Heart } from "../objects/heart/heart";
+import { GameOver } from "../UI/gameLose";
 export class GamePlayScene extends Container {
   constructor() {
     super();
@@ -20,12 +21,25 @@ export class GamePlayScene extends Container {
     this.initBulletManager();
     // this.emitter = new EventEmitter();
     this.initCollisionDetector();
+    this.initGameLose();
   }
 
   initMap() {
     this.map = new Map();
     this.gameContainer.addChild(this.map);
   }
+  initScore(){
+    this.text = new Text();
+    this.text.x = Setting.WIDTH - 200;
+    this.text.y = 100;
+    this.gameContainer.addChild(this.text);
+
+    // update score every frame
+    this.text.text = "Score: " + this.collisionDetector.scoreFinal();
+    
+    
+}
+
 
   initShip() {
     this.ship = new SpaceShip();
@@ -56,6 +70,11 @@ export class GamePlayScene extends Container {
     this.heart = new Heart(this.gameContainer);
     this.gameContainer.addChild(this.heart);
   }
+  initGameLose() {
+    this.gameOver = new GameOver();
+    this.gameOver.visible = false;
+    this.addChild(this.gameOver);
+  }
 
   initCollisionDetector() {
     this.collisionDetector = new CollisionDetector(
@@ -82,5 +101,10 @@ export class GamePlayScene extends Container {
     this.collisionDetector.checkCollisions();
     this.collisionDetector1.checkCollisions1(this.heart.hearts);
     this.collisionDetector2.checkCollisions2(this.heart.hearts);
+    this.initScore();
+    if(this.heart.hearts.length==0){
+      this.gameOver.visible = true;
+      this.gameContainer.visible = false;
+    }
   }
 }

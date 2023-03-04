@@ -3,6 +3,7 @@ export class CollisionDetector {
   constructor(tag1, tag2, gameContainer) {
     this.tag1 = tag1;
     this.tag2 = tag2;
+    this.score = 0;
     this.gameContainer = gameContainer;
     // this.emitter = emitter;
   }
@@ -11,6 +12,7 @@ export class CollisionDetector {
     this.tag1.forEach((col1) => {
       this.tag2.forEach((col2) => {
         if (this.detectCollision(col1, col2)) {
+          this.score++;
           this.gameContainer.removeChild(col2)
           this.gameContainer.removeChild(col1);
           this.tag1.splice(this.tag1.indexOf(col1), 1);
@@ -19,6 +21,9 @@ export class CollisionDetector {
         }
       });
     });
+  }
+  scoreFinal(){
+    return this.score;
   }
   //bullet's enemies and ship
   checkCollisions1(heart) {
