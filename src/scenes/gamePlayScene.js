@@ -3,11 +3,11 @@ import { Map } from "../objects/map";
 import { SpaceShip } from "../objects/ship";
 import { Setting } from "../settings";
 import { PointerMove } from "../input/mouse";
-import { Bullet } from "../objects/bullet/bullet";
 import { BulletManager } from "../objects/bullet/bullet";
 import { EnemyController } from "../objects/enemy/enemyController";
 import { CollisionDetector } from "../collide/collidedetect";
 import EventEmitter from "eventemitter3";
+import { Heart } from "../Heart/heart";
 export class GamePlayScene extends Container {
   constructor() {
     super();
@@ -15,6 +15,7 @@ export class GamePlayScene extends Container {
     this.addChild(this.gameContainer);
     this.initMap();
     this.initShip();
+    this.initHeart();
     this.initEnemy();
     this.initBulletManager();
     // this.emitter = new EventEmitter();
@@ -51,10 +52,25 @@ export class GamePlayScene extends Container {
     this.gameContainer.addChild(this.enemyController);
   }
 
+  initHeart() {
+    this.heart = new Heart(this.gameContainer);
+    this.gameContainer.addChild(this.heart);
+  }
+
   initCollisionDetector() {
     this.collisionDetector = new CollisionDetector(
       this.bulletManager.bullets,
       this.enemyController.enemies,
+      this.gameContainer
+    );
+    this.collisionDetector1 = new CollisionDetector(
+      this.enemyController.bullets,
+      this.ship,
+      this.gameContainer
+    );
+    this.collisionDetector2 = new CollisionDetector(
+      this.enemyController.enemies,
+      this.ship,
       this.gameContainer
     );
   }
@@ -64,5 +80,7 @@ export class GamePlayScene extends Container {
     this.bulletManager.update(dt);
     this.enemyController.update(dt);
     this.collisionDetector.checkCollisions();
+    this.collisionDetector1.checkCollisions1(this.heart.hearts);
+    this.collisionDetector2.checkCollisions2(this.heart.hearts);
   }
 }

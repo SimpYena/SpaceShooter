@@ -1,5 +1,4 @@
 import { Rectangle } from "pixi.js";
-
 export class CollisionDetector {
   constructor(tag1, tag2, gameContainer) {
     this.tag1 = tag1;
@@ -7,19 +6,50 @@ export class CollisionDetector {
     this.gameContainer = gameContainer;
     // this.emitter = emitter;
   }
-
+  //enemy and bullet
   checkCollisions() {
     this.tag1.forEach((col1) => {
       this.tag2.forEach((col2) => {
         if (this.detectCollision(col1, col2)) {
-          console.log("hit");
-          console.log(col2)
           this.gameContainer.removeChild(col2)
           this.gameContainer.removeChild(col1);
-          
+          this.tag1.splice(this.tag1.indexOf(col1), 1);
+          this.tag2.splice(this.tag2.indexOf(col2), 1);
           // emitter.emit("collision", { col1, col2 });
         }
       });
+    });
+  }
+  //bullet's enemies and ship
+  checkCollisions1(heart) {
+    this.heart = heart;
+    this.heart.forEach((heart) => {
+      this.tag1.forEach((col1) => {
+        if (this.detectCollision(col1, this.tag2)) {
+          console.log(heart)
+          this.gameContainer.removeChild(heart)
+          this.gameContainer.removeChild(col1);
+          this.tag1.splice(this.tag1.indexOf(col1), 1);
+          this.heart.splice(this.heart.indexOf(heart), 1)
+        }
+      })
+
+    });
+  }
+  //Enemy and ship
+  checkCollisions2(heart) {
+    this.heart = heart;
+    this.heart.forEach((heart) => {
+      this.tag1.forEach((col1) => {
+        if (this.detectCollision(col1, this.tag2)) {
+          console.log(heart)
+          this.gameContainer.removeChild(heart)
+          this.gameContainer.removeChild(col1);
+          this.tag1.splice(this.tag1.indexOf(col1), 1);
+          this.heart.splice(this.heart.indexOf(heart), 1)
+        }
+      })
+
     });
   }
   detectCollision(col1, col2) {
