@@ -1,5 +1,5 @@
 import { Container, Sprite, Texture } from "pixi.js";
-import { Setting } from "../settings";
+import { Setting } from "../../settings";
 export class Heart extends Container {
     constructor(container) {
         super();

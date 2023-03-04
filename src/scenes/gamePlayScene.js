@@ -7,7 +7,7 @@ import { BulletManager } from "../objects/bullet/bullet";
 import { EnemyController } from "../objects/enemy/enemyController";
 import { CollisionDetector } from "../collide/collidedetect";
 import EventEmitter from "eventemitter3";
-import { Heart } from "../Heart/heart";
+import { Heart } from "../objects/heart/heart";
 export class GamePlayScene extends Container {
   constructor() {
     super();

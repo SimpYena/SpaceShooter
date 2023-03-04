@@ -1,6 +1,6 @@
 import { Container } from "pixi.js";
 import { Heart } from "./heart";
-import { Setting } from "../settings";
+import { Setting } from "../../settings";
 export class HeartManager extends Container {
     constructor(container) {
         super();
