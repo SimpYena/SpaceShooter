@@ -20,7 +20,7 @@ export class EnemyController extends Container {
             this.container.addChild(this.bullet);
             this.enemy.x = Math.floor(Math.random() * Setting.WIDTH - 120);
             this.enemy.y = Setting.HEIGHT - 550;
-            this.bullet.x = this.enemy.x + this.enemy.width / 2 - this.bullet.width / 2 - 27;
+            this.bullet.x = this.enemy.x + this.enemy.width / 2 - this.bullet.width / 2 - 23;
             this.bullet.y = this.enemy.y + this.enemy.height;
             this.enemies.push(this.enemy);
             this.bullets.push(this.bullet);
