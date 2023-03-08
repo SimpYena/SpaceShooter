@@ -1,5 +1,12 @@
-import { Container, Text } from "pixi.js";
-import { Map } from "../objects/map";
+import {
+  Container,
+  TilingSprite,
+  Sprite,
+  Texture,
+  Text,
+  BitmapText,
+  BitmapFont,
+} from "pixi.js";
 import { SpaceShip } from "../objects/ship";
 import { Setting } from "../settings";
 import { PointerMove } from "../input/mouse";
@@ -23,30 +30,18 @@ export class GamePlayScene extends Container {
     this.initCollisionDetector();
     this.initGameLose();
   }
-
   initMap() {
-    this.map = new Map();
+    let texture = Texture.from("map.png");
+    this.map = new Sprite(texture);
+    this.map = new TilingSprite(texture, Setting.WIDTH, Setting.HEIGHT);
     this.gameContainer.addChild(this.map);
   }
-  initScore(){
-    this.text = new Text();
-    this.text.x = Setting.WIDTH - 200;
-    this.text.y = 100;
-    this.gameContainer.addChild(this.text);
-
-    // update score every frame
-    this.text.text = "Score: " + this.collisionDetector.scoreFinal();
-    
-    
-}
-
-
   initShip() {
     this.ship = new SpaceShip();
     this.ship.x = Setting.WIDTH / 2;
     this.ship.y = Setting.HEIGHT - 100;
     this.gameContainer.addChild(this.ship);
-    this.pointerMove = new PointerMove(this.ship, this.gameContainer);
+    // this.pointerMove = new PointerMove(this.ship, this.gameContainer);
 
     this.ship.interactive = true;
     this.ship.on("click", () => {
@@ -56,7 +51,6 @@ export class GamePlayScene extends Container {
       this.bulletManager.fire(position);
     };
   }
-
   initBulletManager() {
     this.bulletManager = new BulletManager(this.gameContainer);
   }
@@ -95,14 +89,13 @@ export class GamePlayScene extends Container {
   }
 
   update(dt) {
-    this.pointerMove.update(dt);
+    this.map.tilePosition.y += 0.5;
     this.bulletManager.update(dt);
     this.enemyController.update(dt);
     this.collisionDetector.checkCollisions();
     this.collisionDetector1.checkCollisions1(this.heart.hearts);
     this.collisionDetector2.checkCollisions2(this.heart.hearts);
-    this.initScore();
-    if(this.heart.hearts.length==0){
+    if (this.heart.hearts.length == 0) {
       this.gameOver.visible = true;
       this.gameContainer.visible = false;
     }
