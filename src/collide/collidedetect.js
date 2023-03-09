@@ -15,7 +15,7 @@ export class CollisionDetector {
           this.score++;
           this.gameContainer.removeChild(col2)
           this.gameContainer.removeChild(col1);
-          this.tag1.splice(this.tag1.indexOf(col1), 1);
+          this.tag1.splice(this.tag1.indexOf(col1), 1); 
           this.tag2.splice(this.tag2.indexOf(col2), 1);
           // emitter.emit("collision", { col1, col2 });
         }
