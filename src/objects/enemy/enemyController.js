@@ -7,9 +7,9 @@ export class EnemyController extends Container {
     constructor(container) {
         super();
         this.container = container;
+        this.createManyEnemys();
         this.enemies = [];
         this.bullets = [];
-        this.createManyEnemys();
     }
     //create enemy in random position x 
     createManyEnemys() {
@@ -18,9 +18,9 @@ export class EnemyController extends Container {
             this.bullet = new BulletEnemy();
             this.container.addChild(this.enemy);
             this.container.addChild(this.bullet);
-            this.enemy.x = Math.floor(Math.random() * Setting.WIDTH - 120);
-            this.enemy.y = Setting.HEIGHT - 550;
-            this.bullet.x = this.enemy.x + this.enemy.width / 2 - this.bullet.width / 2 - 23;
+            this.enemy.x = Math.floor(Math.random() * Setting.WIDTH - 100);
+            this.enemy.y = Setting.HEIGHT/8;
+            this.bullet.x = this.enemy.x + this.enemy.width / 2 - this.bullet.width / 2 - 27;
             this.bullet.y = this.enemy.y + this.enemy.height;
             this.enemies.push(this.enemy);
             this.bullets.push(this.bullet);
@@ -67,7 +67,4 @@ export class EnemyController extends Container {
         // this.fireBullet()
     }
 }
-
-
-
 
