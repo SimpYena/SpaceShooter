@@ -11,8 +11,8 @@ export default class Game {
     });
     document.body.appendChild(this.app.view);
     this.app.ticker.add(this.update, this);
-    // this.initGameScene();
-    this.initBossStage();
+    this.initGameScene();
+   // this.initBossStage();
   }
   initGameScene() {
     this.gamePlayScene = new GamePlayScene();
@@ -23,7 +23,7 @@ export default class Game {
     this.app.stage.addChild(this.bossStage);
   }
   update(dt) {
-    // this.gamePlayScene.update(dt);
-    this.bossStage.update(dt);
+    this.gamePlayScene.update(dt);
+    //this.bossStage.update(dt);
   }
 }

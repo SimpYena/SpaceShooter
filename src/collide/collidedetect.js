@@ -1,30 +1,33 @@
 import { Rectangle } from "pixi.js";
+import { Explosion } from "../explode";
 export class CollisionDetector {
   constructor(tag1, tag2, gameContainer) {
     this.tag1 = tag1;
     this.tag2 = tag2;
-    this.score = 0;
     this.gameContainer = gameContainer;
-    // this.emitter = emitter;
+    this.explosion = new Explosion();
   }
   //enemy and bullet
   checkCollisions() {
     this.tag1.forEach((col1) => {
       this.tag2.forEach((col2) => {
         if (this.detectCollision(col1, col2)) {
-          this.score++;
+          this.explosion.x = col2.x;
+          this.explosion.y = col2.y;
+          this.gameContainer.addChild(this.explosion);
+          this.explosion.initPlay();
           this.gameContainer.removeChild(col2)
           this.gameContainer.removeChild(col1);
+          setInterval(() => {
+            this.gameContainer.removeChild(this.explosion);
+          }, 1000);
           this.tag1.splice(this.tag1.indexOf(col1), 1); 
           this.tag2.splice(this.tag2.indexOf(col2), 1);
-          // emitter.emit("collision", { col1, col2 });
         }
       });
     });
   }
-  scoreFinal(){
-    return this.score;
-  }
+  
   //bullet's enemies and ship
   checkCollisions1(heart) {
     this.heart = heart;

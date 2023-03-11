@@ -16,6 +16,7 @@ import { CollisionDetector } from "../collide/collidedetect";
 import EventEmitter from "eventemitter3";
 import { Heart } from "../objects/heart/heart";
 import { GameOver } from "../UI/gameLose";
+import { Explosion } from "../explode";
 export class GamePlayScene extends Container {
   constructor() {
     super();
@@ -26,6 +27,7 @@ export class GamePlayScene extends Container {
     this.initHeart();
     this.initEnemy();
     this.initBulletManager();
+    // this.initExplode();
     // this.emitter = new EventEmitter();
     this.initCollisionDetector();
     this.initGameLose();
@@ -53,6 +55,10 @@ export class GamePlayScene extends Container {
   initBulletManager() {
     this.bulletManager = new BulletManager(this.gameContainer);
   }
+  initExplode(){
+    this.explosion = new Explosion();
+    this.gameContainer.addChild(this.explosion);
+  }
 
   initEnemy() {
     this.enemyController = new EnemyController(this.gameContainer);
@@ -74,6 +80,7 @@ export class GamePlayScene extends Container {
       this.bulletManager.bullets,
       this.enemyController.enemies,
       this.gameContainer
+
     );
     this.collisionDetector1 = new CollisionDetector(
       this.enemyController.bullets,
