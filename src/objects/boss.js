@@ -1,9 +1,16 @@
 import { Container, AnimatedSprite, Texture } from "pixi.js";
+import { Setting } from "../settings";
 
 export class Boss extends Container {
   constructor() {
     super();
     this.createBoss();
+    this.vx = 3;
+    this.dt = 1;
+    this.x = Setting.WIDTH / 3;
+    this.y = Setting.HEIGHT/ 10;
+    this.width = 8;
+    this.height = 8;
   }
 
   createBoss() {
@@ -18,8 +25,16 @@ export class Boss extends Container {
     animatedSprite.loop = true;
     animatedSprite.play();
     this.addChild(animatedSprite);
-  }  
+  }
+  move(){
+    this.x += this.vx;
+    if(this.x>=Setting.WIDTH-250||this.x<=0){
+      this.vx *= -1;
+    }
+
+  }
 
   update(dt) {
+    this.move();
   }
 }
