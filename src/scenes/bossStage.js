@@ -21,8 +21,10 @@ export class BossStage extends Container {
   }
   initBoss() {
     this.boss = new Boss();
-    this.boss.x = Setting.WIDTH / 2;
-    this.boss.y = Setting.HEIGHT / 2;
+    this.boss.x = Setting.WIDTH / 3;
+    this.boss.y = Setting.HEIGHT/ 10;
+    this.boss.width = 8;
+    this.boss.height = 8;
     this.bossStageContainer.addChild(this.boss);
   }
   initShip() {
@@ -45,5 +47,6 @@ export class BossStage extends Container {
   update(dt) {
     this.map.tilePosition.y += 0.5;
     this.bulletManager.update(dt);
+    this.boss.update(dt);
   }
 }
