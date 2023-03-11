@@ -41,7 +41,6 @@ export class GamePlayScene extends Container {
     this.ship.x = Setting.WIDTH / 2;
     this.ship.y = Setting.HEIGHT - 100;
     this.gameContainer.addChild(this.ship);
-    // this.pointerMove = new PointerMove(this.ship, this.gameContainer);
 
     this.ship.interactive = true;
     this.ship.on("click", () => {
