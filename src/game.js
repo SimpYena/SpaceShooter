@@ -1,5 +1,7 @@
 import { Application } from "pixi.js";
 import { Setting } from "./settings";
+import { GamePlayScene } from "./scenes/gamePlayScene";
+import { BossStage } from "./scenes/bossStage";
 // import { GamePlayScene } from "./scenes/gamePlayScene";
 import { GameStartScene } from "./scenes/gameStartScene";
 export default class Game {
@@ -12,7 +14,8 @@ export default class Game {
     });
     document.body.appendChild(this.app.view);
     this.app.ticker.add(this.update, this);
-    // this.initGameScene();
+    //this.initGameScene();
+   this.initBossStage();
     this.initGameStartScene();
   }
   // initGameScene() {
@@ -23,7 +26,13 @@ export default class Game {
     this.gameStartScene = new GameStartScene();
     this.app.stage.addChild(this.gameStartScene);
   }
+  initBossStage() {
+    this.bossStage = new BossStage();
+    this.app.stage.addChild(this.bossStage);
+  }
   update(dt) {
+    //this.gamePlayScene.update(dt);
+    this.bossStage.update(dt);
     this.gameStartScene.update(dt)
   }
 }
