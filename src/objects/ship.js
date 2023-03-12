@@ -12,8 +12,8 @@ export class SpaceShip extends Container {
     const texture = Texture.from("ship.png");
     this.ship = new Sprite(texture);
 
-    this.ship.width = 64;
-    this.ship.height = 64;
+    this.ship.width = 80;
+    this.ship.height = 80;
     this.ship.anchor.set(0.5);
     this.addChild(this.ship);
   }

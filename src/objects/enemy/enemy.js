@@ -8,8 +8,11 @@ export class Enemy extends Container {
     create() {
         const texture = Texture.from("enemy.png");
         this.enemy = new Sprite(texture);
-        this.enemy.width = 64;
-        this.enemy.height = 64;
+        this.enemy.width = 80;
+        this.enemy.height = 80;
+        // this.enemy.x = x;
+        // this.enemy.y = y;
+        // this.enemy.vy = vy;
         this.enemy.anchor.set(0.5);
         this.addChild(this.enemy);
     }
